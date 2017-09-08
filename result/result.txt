@@ -1,0 +1,230 @@
+./min-caml minrt を実行した時の出力（forループ変換と、並列性判定部分）
+
+/readonly/の欄の領域もwriteされている場合があります。（表示のさせ方がよろしくない）
+
+convert function to forloop -> iter_setup_dirvec_constants.2817
+convert function to forloop -> setup_startp_constants.2822
+convert function to forloop -> trace_reflections.2906
+convert function to forloop -> iter_trace_diffuse_rays.2920
+convert function to forloop -> pretrace_pixels.2974
+convert function to forloop -> init_line_elements.3001
+convert function to forloop -> calc_dirvec.3011
+convert function to forloop -> calc_dirvecs.3019
+convert function to forloop -> calc_dirvec_rows.3024
+convert function to forloop -> create_dirvec_elements.3030
+convert function to forloop -> create_dirvecs.3033
+convert function to forloop -> init_dirvec_constants.3035
+convert function to forloop -> init_vecset_constants.3038
+
+iter_setup_dirvec_constants.2817 :judging -----> 
+cannot parallelize this function:side effect
+
+
+setup_startp_constants.2822 :judging -----> 
+can parallelize this function!
+<<-------------------------------------------------------
+
+//readonly//
+objects.2526.(i+0)
+objects.2526.(i+0).<4>.(0)
+objects.2526.(i+0).<4>.(1)
+objects.2526.(i+0).<4>.(2)
+objects.2526.(i+0).<5>.(0)
+objects.2526.(i+0).<5>.(1)
+objects.2526.(i+0).<5>.(2)
+objects.2526.(i+0).<9>.(0)
+objects.2526.(i+0).<9>.(1)
+objects.2526.(i+0).<9>.(2)
+p.2823.(0)
+p.2823.(1)
+p.2823.(2)
+
+//write//
+objects.2526.(i+0).<10>.(0)
+objects.2526.(i+0).<10>.(1)
+objects.2526.(i+0).<10>.(2)
+objects.2526.(i+0).<10>.(3)
+
+//WAR closed in one loop//
+objects.2526.(i+0).<10>.(0)
+objects.2526.(i+0).<10>.(1)
+objects.2526.(i+0).<10>.(2)
+
+//accumulate through loop//
+------------------------------------------------------->>
+
+
+trace_reflections.2906 :judging ----->
+cannot parallelize this function:WAR over loop
+rgb.2541.(0)
+
+
+iter_trace_diffuse_rays.2920 :judging ----->
+can parallelize this function!
+<<-------------------------------------------------------
+
+//readonly//
+and_net.2531.(unknown)
+and_net.2531.(unknown).(unknown)
+diffuse_ray.2540.(0)
+diffuse_ray.2540.(1)
+diffuse_ray.2540.(2)
+dirvec_group.2921.(i+0)
+dirvec_group.2921.(i+0).<0>.(unknown)
+dirvec_group.2921.(i+0).<0>.(0)
+dirvec_group.2921.(i+0).<0>.(1)
+dirvec_group.2921.(i+0).<0>.(2)
+dirvec_group.2921.(i+0).<1>.(unknown)
+dirvec_group.2921.(i+0).<1>.(unknown).(0)
+dirvec_group.2921.(i+0).<1>.(unknown).(1)
+dirvec_group.2921.(i+0).<1>.(unknown).(2)
+dirvec_group.2921.(i+0).<1>.(unknown).(3)
+dirvec_group.2921.(i+0).<1>.(unknown).(4)
+dirvec_group.2921.(i+0).<1>.(unknown).(5)
+dirvec_group.2921.(i+1)
+dirvec_group.2921.(i+1).<0>.(unknown)
+dirvec_group.2921.(i+1).<0>.(0)
+dirvec_group.2921.(i+1).<0>.(1)
+dirvec_group.2921.(i+1).<0>.(2)
+dirvec_group.2921.(i+1).<1>.(unknown)
+dirvec_group.2921.(i+1).<1>.(unknown).(0)
+dirvec_group.2921.(i+1).<1>.(unknown).(1)
+dirvec_group.2921.(i+1).<1>.(unknown).(2)
+dirvec_group.2921.(i+1).<1>.(unknown).(3)
+dirvec_group.2921.(i+1).<1>.(unknown).(4)
+dirvec_group.2921.(i+1).<1>.(unknown).(5)
+light.2529.(0)
+light.2529.(1)
+light.2529.(2)
+light_dirvec.2552.<0>.(0)
+light_dirvec.2552.<0>.(1)
+light_dirvec.2552.<0>.(2)
+light_dirvec.2552.<1>.(unknown)
+light_dirvec.2552.<1>.(unknown).(0)
+light_dirvec.2552.<1>.(unknown).(1)
+light_dirvec.2552.<1>.(unknown).(2)
+light_dirvec.2552.<1>.(unknown).(3)
+light_dirvec.2552.<1>.(unknown).(4)
+light_dirvec.2552.<1>.(unknown).(5)
+nvector.2922.(0)
+nvector.2922.(1)
+nvector.2922.(2)
+objects.2526.(unknown)
+objects.2526.(unknown).<4>.(0)
+objects.2526.(unknown).<4>.(1)
+objects.2526.(unknown).<4>.(2)
+objects.2526.(unknown).<5>.(0)
+objects.2526.(unknown).<5>.(1)
+objects.2526.(unknown).<5>.(2)
+objects.2526.(unknown).<7>.(0)
+objects.2526.(unknown).<8>.(0)
+objects.2526.(unknown).<8>.(1)
+objects.2526.(unknown).<8>.(2)
+objects.2526.(unknown).<9>.(0)
+objects.2526.(unknown).<9>.(1)
+objects.2526.(unknown).<9>.(2)
+objects.2526.(unknown).<10>.(0)
+objects.2526.(unknown).<10>.(1)
+objects.2526.(unknown).<10>.(2)
+objects.2526.(unknown).<10>.(3)
+or_net.2532.(0)
+or_net.2532.(0).(unknown)
+or_net.2532.(0).(unknown).(unknown)
+or_net.2532.(0).(unknown).(0)
+startp_fast.2546.(0)
+startp_fast.2546.(1)
+startp_fast.2546.(2)
+
+//write//
+diffuse_ray.2540.(0)
+diffuse_ray.2540.(1)
+diffuse_ray.2540.(2)
+intersected_object_id.2537.(0)
+intersection_point.2536.(0)
+intersection_point.2536.(1)
+intersection_point.2536.(2)
+intsec_rectside.2534.(0)
+nvector.2538.(unknown)
+nvector.2538.(0)
+nvector.2538.(1)
+nvector.2538.(2)
+solver_dist.2533.(0)
+texture_color.2539.(0)
+texture_color.2539.(1)
+texture_color.2539.(2)
+tmin.2535.(0)
+
+//WAR closed in one loop//
+intersected_object_id.2537.(0)
+intersection_point.2536.(0)
+intersection_point.2536.(1)
+intersection_point.2536.(2)
+intsec_rectside.2534.(0)
+nvector.2538.(0)
+nvector.2538.(1)
+nvector.2538.(2)
+solver_dist.2533.(0)
+texture_color.2539.(0)
+texture_color.2539.(1)
+texture_color.2539.(2)
+tmin.2535.(0)
+
+//accumulate through loop//
+diffuse_ray.2540.(0)
+diffuse_ray.2540.(1)
+diffuse_ray.2540.(2)
+------------------------------------------------------->>
+convert2accum:diffuse_ray.2540.(2)
+convert2accum:diffuse_ray.2540.(2)
+convert2accum:diffuse_ray.2540.(1)
+convert2accum:diffuse_ray.2540.(1)
+convert2accum:diffuse_ray.2540.(0)
+convert2accum:diffuse_ray.2540.(0)
+
+
+pretrace_pixels.2974 :judging ----->
+cannot parallelize this function:WAR over loop
+ptrace_dirvec.2550.(unknown)
+
+
+init_line_elements.3001 :judging ----->
+cannot parallelize this function:side effect
+
+
+calc_dirvec.3011 :judging ----->
+cannot parallelize this function:RAW over loop
+ref:y.3014.6234d,elm
+
+
+calc_dirvecs.3019 :judging ----->
+cannot parallelize this function:RAW over loop
+ref:y.3014.6234.66728d,elm
+
+
+calc_dirvec_rows.3024 :judging ----->
+cannot parallelize this function:RAW over loop
+ref:y.3014.6234.68456d,elm
+
+
+create_dirvec_elements.3030 :judging ----->
+cannot parallelize this function:side effect
+
+
+create_dirvecs.3033 :judging ----->
+cannot parallelize this function:side effect
+
+
+init_dirvec_constants.3035 :judging ----->
+cannot parallelize this function:side effect
+
+
+init_vecset_constants.3038 :judging ----->
+cannot parallelize this function:side effect
+
+
+please choose one function for parallelize...
+0 : iter_trace_diffuse_rays.2920
+1 : setup_startp_constants.2822
+2 : do not parallelize
+
+
